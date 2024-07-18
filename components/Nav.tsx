@@ -93,7 +93,7 @@ const Nav = () => {
               height={18}
               alt="home icon"
             />
-            <span>Notifications</span>
+            <span>Your Lists</span>
           </li>
           <li className="flex flex-row gap-x-3 px-3 ">
             <Image

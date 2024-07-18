@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: 200 23% 97%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 218 24% 27%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -39,5 +39,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  h2{
+    @apply xl:text-[36px] leading-[40px] font-bold;
   }
 }
