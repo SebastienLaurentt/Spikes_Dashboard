@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowDown, Download, FolderPlus } from "lucide-react";
+import { ArrowDown, Download, FolderPlus, Search } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -28,7 +28,12 @@ export default function Home() {
         </ul>
         <div className="flex flex-row">
           <div className="flex flex-row gap-x-3">
-            <Input placeholder="Search" />
+            <Input
+              placeholder="Search"
+              className="text-xs"
+              hasSearchIcon
+              searchIconSize={13}
+            />
             <Select>
               <SelectTrigger className="w-[89px]">
                 <SelectValue placeholder="Object" />
@@ -85,6 +90,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       {/* Table */}
       <div className="mt-8">
         <table className="min-w-full ">

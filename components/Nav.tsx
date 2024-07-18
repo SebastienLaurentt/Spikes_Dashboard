@@ -1,4 +1,4 @@
-import { ChevronDown, Crown } from "lucide-react";
+import { ChevronDown, Crown, SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -9,7 +9,12 @@ const Nav = () => {
     <div className="w-[326px] h-[800px] px-8 flex flex-col ">
       <div className="space-y-6 flex flex-col">
         <Image src="/images/icon.png" alt="logo" width={32} height={32} />
-        <Input placeholder="Search" />
+        <Input 
+        placeholder="Search"
+        hasSearchIcon
+        hasShortCutIcon
+        searchIconSize={20}
+      />
       </div>
       <div className="py-3">
         <span className="text-primary-foreground text-[14px]">Navigation</span>
@@ -53,7 +58,7 @@ const Nav = () => {
         </ul>
       </div>
       <div className="py-3">
-        <span className="text-primary-foreground text-[14px]">Navigation</span>
+        <span className="text-primary-foreground text-[14px]">Your Lists</span>
         <ul className="text-sm font-bold gap-y-2 flex flex-col py-2">
           <li className="flex flex-row gap-x-3 px-3 ">
             <Image
@@ -86,14 +91,15 @@ const Nav = () => {
       </div>
       <div className="py-3">
         <ul className="text-sm font-bold gap-y-2 flex flex-col py-2">
-          <li className="flex flex-row gap-x-3 px-3 ">
+          <li className="flex flex-row gap-x-3 px-3 items-center">
             <Image
               src="/images/notificationsIcon.svg"
               width={18}
               height={18}
               alt="home icon"
             />
-            <span>Your Lists</span>
+            <span>Notification</span>
+            <span className="bg-accent text-primary w-[30px] h-[16px] flex flex-row items-center justify-center text-[8px] rounded-[4px]">3</span>
           </li>
           <li className="flex flex-row gap-x-3 px-3 ">
             <Image
@@ -119,7 +125,7 @@ const Nav = () => {
         <div>
           <Progress value={66} />
           <span className="text-xs font-medium">
-            5 Deals left from 30 Leads{" "}
+            5 Deals left from 30 Leads
           </span>
         </div>
 
