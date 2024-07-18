@@ -1,3 +1,5 @@
+'use client'
+
 import StatueCircle from "@/components/StatueCircle";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,20 +13,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowDown, Download, FolderPlus, Search } from "lucide-react";
+import { ArrowDown, Download, FolderPlus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedFilter, setSelectedFilter] = useState<string>('Completed (3)'); 
+
+  const handleFilterClick = (filter: string) => {
+    setSelectedFilter(filter);
+  };
+
   return (
     <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
       <div className="flex flex-col gap-y-5">
         <h2>Deals</h2>
-        <ul className="mx-2 flex flex-row gap-x-[27px] text-[14px] border-b w-fit font-medium">
-          <li className="border-black border-b">Completed (3)</li>
-          <li className="text-accent/20">Pending (10)</li>
-          <li className="text-accent/20">Ongoing (10)</li>
-          <li className="text-accent/20">All Deals</li>
-          <li className="text-accent/20">Waiting for Confirmation (1)</li>
+        <ul className=" flex flex-row gap-x-5 text-[14px] border-b w-fit font-medium">
+          {[
+            "Completed (3)",
+            "Pending (10)",
+            "Ongoing (10)",
+            "All Deals",
+            "Waiting for Confirmation (1)",
+          ].map((item) => (
+            <li
+              key={item}
+              className={`cursor-pointer px-2 text-accent/20 hover:border-b hover:border-black hover:text-accent ${
+                selectedFilter === item
+                  ? "border-black border-b text-accent"
+                  : ""
+              }`}
+              onClick={() => handleFilterClick(item)}
+            >
+              {item}
+            </li>
+          ))}
         </ul>
         <div className="flex flex-row">
           <div className="flex flex-row gap-x-3">
