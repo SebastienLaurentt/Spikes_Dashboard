@@ -71,7 +71,7 @@ const Nav = () => {
       </div>
       <div className="py-3">
         <ul className="text-sm font-bold gap-y-2 flex flex-col py-2">
-          <li className="flex flex-row gap-x-3 px-3 items-center">
+          <li className="flex flex-row gap-x-3 px-3 items-center cursor-pointer">
             <Image
               src="/images/notificationsIcon.svg"
               width={18}
@@ -83,7 +83,7 @@ const Nav = () => {
               3
             </span>
           </li>
-          <li className="flex flex-row gap-x-3 px-3">
+          <li className="flex flex-row gap-x-3 px-3 cursor-pointer">
             <Image
               src="/images/settingsIcon.svg"
               width={18}
@@ -114,7 +114,7 @@ const Nav = () => {
           <Crown /> Upgrade to pro
         </Button>
       </div>
-      <div className="bg-primary border mt-2 flex flex-row p-2 items-center rounded-[12px] gap-x-[11px]">
+      <div className="bg-primary border mt-1.5 flex flex-row p-2 items-center rounded-[12px] gap-x-[11px]">
         <Image
           src="/images/profil.png"
           alt="profile"
