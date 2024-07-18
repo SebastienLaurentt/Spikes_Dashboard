@@ -16,6 +16,7 @@ const Nav = () => {
 
   return (
     <div className="w-[326px] h-[800px] px-8 flex flex-col">
+      {/* Icon and SearchBar */}
       <div className="space-y-6 flex flex-col">
         <Image src="/images/icon.png" alt="logo" width={32} height={32} />
         <Input
@@ -25,6 +26,8 @@ const Nav = () => {
           searchIconSize={20}
         />
       </div>
+
+      {/* Navigation Tab */}
       <div className="py-2">
         <span className="text-primary-foreground text-[14px]">Navigation</span>
         <ul className="text-sm font-bold gap-y-[1px] flex flex-col">
@@ -47,6 +50,8 @@ const Nav = () => {
           ))}
         </ul>
       </div>
+
+      {/* Your Lists Tab */}
       <div className="py-2">
         <span className="text-primary-foreground text-[14px]">Your Lists</span>
         <ul className="text-sm font-bold gap-y-[1px] flex flex-col">
@@ -69,6 +74,8 @@ const Nav = () => {
           ))}
         </ul>
       </div>
+
+      {/* Notifications and Settings */}
       <div className="py-3">
         <ul className="text-sm font-bold gap-y-2 flex flex-col py-2">
           <li className="flex flex-row gap-x-3 px-3 items-center cursor-pointer">
@@ -78,7 +85,7 @@ const Nav = () => {
               height={18}
               alt="notifications icon"
             />
-            <span>Notification</span>
+            <span>Notifications</span>
             <span className="bg-accent text-primary w-[30px] h-[16px] flex flex-row items-center justify-center text-[8px] rounded-[4px]">
               3
             </span>
@@ -94,6 +101,8 @@ const Nav = () => {
           </li>
         </ul>
       </div>
+
+      {/* Deals Section */}
       <div className="bg-primary border p-3 flex flex-col gap-y-[22px] rounded-[12px]">
         <div className="flex flex-row gap-x-[15px]">
           <Image
@@ -114,6 +123,8 @@ const Nav = () => {
           <Crown /> Upgrade to pro
         </Button>
       </div>
+
+      {/* Profile Section */}
       <div className="bg-primary border mt-1.5 flex flex-row p-2 items-center rounded-[12px] gap-x-[11px]">
         <Image
           src="/images/profil.png"
