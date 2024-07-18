@@ -1,9 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-  return (
-    <main>
-      yoo 
-    </main>
-  );
+  return <main className="bg-primary w-full flex-1 rounded-l-[12px] border ">yoo</main>;
 }
