@@ -13,88 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { tableData } from "@/lib/tableData";
 import { ArrowDown, Download, FolderPlus } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-
-type StatusType = "Pending" | "Cancelled" | "Ongoing" | "Waiting" | "Completed";
-
-interface TableRow {
-  date: string;
-  object: string;
-  company: {
-    name: string;
-    image: string;
-  };
-  status: StatusType;
-  amount: string;
-}
-
-const tableData: TableRow[] = [
-  {
-    date: "Jan. 24",
-    object: "Product Design : Payme...",
-    company: { name: "Stripe Inc.", image: "/images/Stripe.png" },
-    status: "Pending",
-    amount: "7.800 $USD",
-  },
-  {
-    date: "Jan. 24",
-    object: "App Redesign : Onboar...",
-    company: { name: "Github Corp.", image: "/images/GitHub.png" },
-    status: "Cancelled",
-    amount: "12.800 $USD",
-  },
-  {
-    date: "Dec. 23",
-    object: "Pitch Deck B2B",
-    company: { name: "Amazon", image: "/images/Amazon.png" },
-    status: "Ongoing",
-    amount: "14.000 $USD",
-  },
-  {
-    date: "Oct. 23",
-    object: "Mobile App, UX Audit",
-    company: { name: "Steam", image: "/images/Steam.png" },
-    status: "Waiting",
-    amount: "2.000 $USD",
-  },
-  {
-    date: "Oct. 23",
-    object: "Splash Screen Illustrator",
-    company: { name: "Adobe LLC.", image: "/images/Adobe.png" },
-    status: "Completed",
-    amount: "5.500 $USD",
-  },
-  {
-    date: "Oct. 23",
-    object: "Features Add",
-    company: { name: "The Browser Company", image: "/images/Arc.png" },
-    status: "Pending",
-    amount: "14.500 $USD",
-  },
-  {
-    date: "Sept. 23",
-    object: "Brand Guidelines",
-    company: { name: "Figma", image: "/images/Figma.png" },
-    status: "Completed",
-    amount: "21.500 $USD",
-  },
-  {
-    date: "Sept. 23",
-    object: "New messages UX",
-    company: { name: "Slack", image: "/images/Slack.png" },
-    status: "Ongoing",
-    amount: "1.900 $USD",
-  },
-  {
-    date: "Sept. 23",
-    object: "Landing page",
-    company: { name: "Opensea", image: "/images/Opensea.png" },
-    status: "Pending",
-    amount: "2.300 $USD",
-  },
-];
 
 export default function Home() {
   const [selectedFilter, setSelectedFilter] = useState<string>("Completed (3)");
@@ -104,15 +26,15 @@ export default function Home() {
   };
 
   const objectsData = tableData
-    .map(row => row.object)
+    .map((row) => row.object)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   const companiesData = tableData
-    .map(row => row.company.name)
+    .map((row) => row.company.name)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   const statusData = tableData
-    .map(row => row.status)
+    .map((row) => row.status)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   return (
@@ -129,10 +51,10 @@ export default function Home() {
           ].map((item) => (
             <li
               key={item}
-              className={`cursor-pointer px-2 text-accent/20 hover:border-b hover:border-black hover:text-accent ${
+              className={`cursor-pointer px-2  hover:border-b hover:border-black hover:text-accent ${
                 selectedFilter === item
                   ? "border-black border-b text-accent"
-                  : ""
+                  : "text-accent/20"
               }`}
               onClick={() => handleFilterClick(item)}
             >
@@ -156,7 +78,9 @@ export default function Home() {
                 <SelectGroup>
                   <SelectLabel>Objects</SelectLabel>
                   {objectsData.map((object, index) => (
-                    <SelectItem key={index} value={object}>{object}</SelectItem>
+                    <SelectItem key={index} value={object}>
+                      {object}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -169,7 +93,9 @@ export default function Home() {
                 <SelectGroup>
                   <SelectLabel>Companies</SelectLabel>
                   {companiesData.map((company, index) => (
-                    <SelectItem key={index} value={company}>{company}</SelectItem>
+                    <SelectItem key={index} value={company}>
+                      {company}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
@@ -182,7 +108,9 @@ export default function Home() {
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
                   {statusData.map((status, index) => (
-                    <SelectItem key={index} value={status}>{status}</SelectItem>
+                    <SelectItem key={index} value={status}>
+                      {status}
+                    </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
