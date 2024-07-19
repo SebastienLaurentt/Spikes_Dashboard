@@ -28,7 +28,7 @@ export default function Home() {
     setSelectedFilter(filter);
   };
 
-  // Récupération des données uniques pour les sélecteurs
+
   const objectsData = tableData
     .map((row) => row.object)
     .filter((value, index, self) => self.indexOf(value) === index);
@@ -41,7 +41,7 @@ export default function Home() {
     .map((row) => row.status)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-  // Filtrage des données du tableau en fonction des sélections
+
   const filteredData = tableData.filter(row => {
     const objectMatch = selectedObject ? row.object === selectedObject : true;
     const companyMatch = selectedCompany ? row.company.name === selectedCompany : true;
@@ -83,7 +83,7 @@ export default function Home() {
               searchIconSize={13}
             />
             <Select onValueChange={(value) => setSelectedObject(value === "All" ? null : value)}>
-              <SelectTrigger className="w-[89px]">
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
               <SelectContent>
@@ -99,7 +99,7 @@ export default function Home() {
               </SelectContent>
             </Select>
             <Select onValueChange={(value) => setSelectedCompany(value === "All" ? null : value)}>
-              <SelectTrigger className="w-[105px]">
+              <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
               <SelectContent>
@@ -115,7 +115,7 @@ export default function Home() {
               </SelectContent>
             </Select>
             <Select onValueChange={(value) => setSelectedStatus(value === "All" ? null : value)}>
-              <SelectTrigger className="w-[89px]">
+              <SelectTrigger className="w-[110px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -131,7 +131,7 @@ export default function Home() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-row gap-x-2 ml-60">
+          <div className="flex flex-row gap-x-2 ml-20 2xl:ml-60">
             <Button variant="primary" className="space-x-[5px]">
               <Download size={18} /> <span className="text-xs">Export</span>
             </Button>
@@ -147,16 +147,16 @@ export default function Home() {
         <table className="min-w-full">
           <thead>
             <tr className="bg-background border-b text-[12px] flex flex-row justify-start">
-              <th className="py-3 px-6 font-medium w-[152px] flex flex-row space-x-3 items-center">
+              <th className="py-3 px-6 font-medium w-[152px] 2xl:w-[200px] flex flex-row space-x-3 items-center">
                 <Checkbox id="terms" />
                 <span className="space-x-1 flex flex-row items-center">
                   <span>Add</span> <ArrowDown size={16} />
                 </span>
               </th>
-              <th className="py-3 px-6 w-[237px] text-left">Object</th>
-              <th className="py-3 px-6 w-[237px] text-left">Company</th>
-              <th className="py-3 px-6 w-[237px] text-left">Status</th>
-              <th className="py-3 px-6 w-[237px] text-left">Amount</th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Object</th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Company</th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Status</th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Amount</th>
             </tr>
           </thead>
           <tbody className="text-[14px] font-medium">
@@ -167,11 +167,11 @@ export default function Home() {
                   index !== filteredData.length - 1 ? "border-b" : ""
                 }`}
               >
-                <td className="py-4 px-6 gap-x-3 flex flex-row items-center w-[152px]">
+                <td className="py-4 px-6 gap-x-3 flex flex-row items-center w-[152px] 2xl:w-[200px]">
                   <Checkbox id="terms" /> <span>{row.date}</span>
                 </td>
-                <td className="py-4 px-6 w-[237px]">{row.object}</td>
-                <td className="py-4 px-6 w-[237px] flex flex-row gap-x-2 items-center">
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">{row.object}</td>
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px] flex flex-row gap-x-2 items-center">
                   <Image
                     src={row.company.image}
                     alt={`${row.company.name} Img`}
@@ -181,10 +181,10 @@ export default function Home() {
                   />
                   <span>{row.company.name}</span>
                 </td>
-                <td className="py-4 px-6 w-[237px] flex flex-row items-center gap-x-2.5">
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px] flex flex-row items-center gap-x-2.5">
                   <StatueCircle status={row.status} /> {row.status}
                 </td>
-                <td className="py-4 px-6 w-[237px]">{row.amount}</td>
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">{row.amount}</td>
               </tr>
             ))}
           </tbody>
