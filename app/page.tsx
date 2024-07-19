@@ -103,6 +103,18 @@ export default function Home() {
     setSelectedFilter(filter);
   };
 
+  const objectsData = tableData
+    .map(row => row.object)
+    .filter((value, index, self) => self.indexOf(value) === index);
+
+  const companiesData = tableData
+    .map(row => row.company.name)
+    .filter((value, index, self) => self.indexOf(value) === index);
+
+  const statusData = tableData
+    .map(row => row.status)
+    .filter((value, index, self) => self.indexOf(value) === index);
+
   return (
     <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
       <div className="flex flex-col gap-y-5">
@@ -142,12 +154,10 @@ export default function Home() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                  <SelectLabel>Objects</SelectLabel>
+                  {objectsData.map((object, index) => (
+                    <SelectItem key={index} value={object}>{object}</SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -157,27 +167,23 @@ export default function Home() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                  <SelectLabel>Companies</SelectLabel>
+                  {companiesData.map((company, index) => (
+                    <SelectItem key={index} value={company}>{company}</SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
             <Select>
               <SelectTrigger className="w-[89px]">
-                <SelectValue placeholder="Statue" />
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                  <SelectLabel>Status</SelectLabel>
+                  {statusData.map((status, index) => (
+                    <SelectItem key={index} value={status}>{status}</SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -195,7 +201,7 @@ export default function Home() {
 
       {/* Table */}
       <div className="mt-8">
-        <table className="min-w-full ">
+        <table className="min-w-full">
           <thead>
             <tr className="bg-background border-b text-[12px] flex flex-row justify-start">
               <th className="py-3 px-6 font-medium w-[152px] flex flex-row space-x-3 items-center">
@@ -206,11 +212,11 @@ export default function Home() {
               </th>
               <th className="py-3 px-6 w-[237px] text-left">Object</th>
               <th className="py-3 px-6 w-[237px] text-left">Company</th>
-              <th className="py-3 px-6 w-[237px] text-left">Statue</th>
+              <th className="py-3 px-6 w-[237px] text-left">Status</th>
               <th className="py-3 px-6 w-[237px] text-left">Amount</th>
             </tr>
           </thead>
-          <tbody className="text-[14px] font-medium ">
+          <tbody className="text-[14px] font-medium">
             {tableData.map((row, index) => (
               <tr
                 key={index}
