@@ -19,15 +19,38 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const [selectedFilter, setSelectedFilter] = useState<string>("Completed (3)");
+  const [selectedHeaderStatus, setSelectedHeaderStatus] =
+    useState<string>("Completed (3)");
   const [selectedObject, setSelectedObject] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [checkedItems, setCheckedItems] = useState<boolean[]>(
+    new Array(tableData.length).fill(false)
+  );
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
 
-  const handleFilterClick = (filter: string) => {
-    setSelectedFilter(filter);
+  const handleFilterHeaderStatus = (filter: string) => {
+    setSelectedHeaderStatus(filter);
   };
 
+  const handleSelectAllChange = (checked: boolean | string) => {
+    const isChecked = checked === true || checked === "true";
+    setIsAllChecked(isChecked);
+    setCheckedItems(new Array(tableData.length).fill(isChecked));
+  };
+
+  const handleCheckboxChange = (index: number, checked: boolean | string) => {
+    const isChecked = checked === true || checked === "true";
+    const newCheckedItems = [...checkedItems];
+    newCheckedItems[index] = isChecked;
+    setCheckedItems(newCheckedItems);
+
+    if (!isChecked) {
+      setIsAllChecked(false);
+    } else if (newCheckedItems.every(item => item)) {
+      setIsAllChecked(true);
+    }
+  };
 
   const objectsData = tableData
     .map((row) => row.object)
@@ -41,10 +64,11 @@ export default function Home() {
     .map((row) => row.status)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-
-  const filteredData = tableData.filter(row => {
+  const filteredData = tableData.filter((row) => {
     const objectMatch = selectedObject ? row.object === selectedObject : true;
-    const companyMatch = selectedCompany ? row.company.name === selectedCompany : true;
+    const companyMatch = selectedCompany
+      ? row.company.name === selectedCompany
+      : true;
     const statusMatch = selectedStatus ? row.status === selectedStatus : true;
     return objectMatch && companyMatch && statusMatch;
   });
@@ -64,11 +88,11 @@ export default function Home() {
             <li
               key={item}
               className={`cursor-pointer px-2 hover:border-b hover:border-black hover:text-accent ${
-                selectedFilter === item
+                selectedHeaderStatus === item
                   ? "border-black border-b text-accent"
                   : "text-accent/20"
               }`}
-              onClick={() => handleFilterClick(item)}
+              onClick={() => handleFilterHeaderStatus(item)}
             >
               {item}
             </li>
@@ -82,7 +106,11 @@ export default function Home() {
               hasSearchIcon
               searchIconSize={13}
             />
-            <Select onValueChange={(value) => setSelectedObject(value === "All" ? null : value)}>
+            <Select
+              onValueChange={(value) =>
+                setSelectedObject(value === "All" ? null : value)
+              }
+            >
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
@@ -98,7 +126,11 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select onValueChange={(value) => setSelectedCompany(value === "All" ? null : value)}>
+            <Select
+              onValueChange={(value) =>
+                setSelectedCompany(value === "All" ? null : value)
+              }
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
@@ -114,7 +146,11 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select onValueChange={(value) => setSelectedStatus(value === "All" ? null : value)}>
+            <Select
+              onValueChange={(value) =>
+                setSelectedStatus(value === "All" ? null : value)
+              }
+            >
               <SelectTrigger className="w-[110px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -148,15 +184,27 @@ export default function Home() {
           <thead>
             <tr className="bg-background border-b text-[12px] flex flex-row justify-start">
               <th className="py-3 px-6 font-medium w-[152px] 2xl:w-[200px] flex flex-row space-x-3 items-center">
-                <Checkbox id="terms" />
+                <Checkbox
+                  id="select-all"
+                  checked={isAllChecked}
+                  onCheckedChange={(checked) => handleSelectAllChange(checked)}
+                />
                 <span className="space-x-1 flex flex-row items-center">
                   <span>Add</span> <ArrowDown size={16} />
                 </span>
               </th>
-              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Object</th>
-              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Company</th>
-              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Status</th>
-              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Amount</th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">
+                Object
+              </th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">
+                Company
+              </th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">
+                Status
+              </th>
+              <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">
+                Amount
+              </th>
             </tr>
           </thead>
           <tbody className="text-[14px] font-medium">
@@ -168,9 +216,18 @@ export default function Home() {
                 }`}
               >
                 <td className="py-4 px-6 gap-x-3 flex flex-row items-center w-[152px] 2xl:w-[200px]">
-                  <Checkbox id="terms" /> <span>{row.date}</span>
+                  <Checkbox
+                    id={`row-${index}`}
+                    checked={checkedItems[index]}
+                    onCheckedChange={(checked) =>
+                      handleCheckboxChange(index, checked)
+                    }
+                  />{" "}
+                  <span>{row.date}</span>
                 </td>
-                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">{row.object}</td>
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">
+                  {row.object}
+                </td>
                 <td className="py-4 px-6 w-[237px] 2xl:w-[330px] flex flex-row gap-x-2 items-center">
                   <Image
                     src={row.company.image}
@@ -184,7 +241,9 @@ export default function Home() {
                 <td className="py-4 px-6 w-[237px] 2xl:w-[330px] flex flex-row items-center gap-x-2.5">
                   <StatueCircle status={row.status} /> {row.status}
                 </td>
-                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">{row.amount}</td>
+                <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">
+                  {row.amount}
+                </td>
               </tr>
             ))}
           </tbody>
