@@ -20,11 +20,15 @@ import { useState } from "react";
 
 export default function Home() {
   const [selectedFilter, setSelectedFilter] = useState<string>("Completed (3)");
+  const [selectedObject, setSelectedObject] = useState<string | null>(null);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
   const handleFilterClick = (filter: string) => {
     setSelectedFilter(filter);
   };
 
+  // Récupération des données uniques pour les sélecteurs
   const objectsData = tableData
     .map((row) => row.object)
     .filter((value, index, self) => self.indexOf(value) === index);
@@ -36,6 +40,14 @@ export default function Home() {
   const statusData = tableData
     .map((row) => row.status)
     .filter((value, index, self) => self.indexOf(value) === index);
+
+  // Filtrage des données du tableau en fonction des sélections
+  const filteredData = tableData.filter(row => {
+    const objectMatch = selectedObject ? row.object === selectedObject : true;
+    const companyMatch = selectedCompany ? row.company.name === selectedCompany : true;
+    const statusMatch = selectedStatus ? row.status === selectedStatus : true;
+    return objectMatch && companyMatch && statusMatch;
+  });
 
   return (
     <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
@@ -51,7 +63,7 @@ export default function Home() {
           ].map((item) => (
             <li
               key={item}
-              className={`cursor-pointer px-2  hover:border-b hover:border-black hover:text-accent ${
+              className={`cursor-pointer px-2 hover:border-b hover:border-black hover:text-accent ${
                 selectedFilter === item
                   ? "border-black border-b text-accent"
                   : "text-accent/20"
@@ -70,13 +82,14 @@ export default function Home() {
               hasSearchIcon
               searchIconSize={13}
             />
-            <Select>
+            <Select onValueChange={(value) => setSelectedObject(value === "All" ? null : value)}>
               <SelectTrigger className="w-[89px]">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Objects</SelectLabel>
+                  <SelectItem value="All">All</SelectItem>
                   {objectsData.map((object, index) => (
                     <SelectItem key={index} value={object}>
                       {object}
@@ -85,13 +98,14 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select>
+            <Select onValueChange={(value) => setSelectedCompany(value === "All" ? null : value)}>
               <SelectTrigger className="w-[105px]">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Companies</SelectLabel>
+                  <SelectItem value="All">All</SelectItem>
                   {companiesData.map((company, index) => (
                     <SelectItem key={index} value={company}>
                       {company}
@@ -100,13 +114,14 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Select>
+            <Select onValueChange={(value) => setSelectedStatus(value === "All" ? null : value)}>
               <SelectTrigger className="w-[89px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
+                  <SelectItem value="All">All</SelectItem>
                   {statusData.map((status, index) => (
                     <SelectItem key={index} value={status}>
                       {status}
@@ -145,11 +160,11 @@ export default function Home() {
             </tr>
           </thead>
           <tbody className="text-[14px] font-medium">
-            {tableData.map((row, index) => (
+            {filteredData.map((row, index) => (
               <tr
                 key={index}
                 className={`flex flex-row justify-start ${
-                  index !== tableData.length - 1 ? "border-b" : ""
+                  index !== filteredData.length - 1 ? "border-b" : ""
                 }`}
               >
                 <td className="py-4 px-6 gap-x-3 flex flex-row items-center w-[152px]">
