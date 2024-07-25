@@ -23,7 +23,7 @@ export default function Home() {
     useState<string>("Completed (3)");
   const [selectedObject, setSelectedObject] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>("Completed");
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
   );
@@ -31,6 +31,7 @@ export default function Home() {
 
   const handleFilterHeaderStatus = (filter: string) => {
     setSelectedHeaderStatus(filter);
+    setSelectedStatus(filter === "All Deals" ? null : filter.split(" ")[0]);
   };
 
   const handleSelectAllChange = (checked: boolean | string) => {
@@ -79,11 +80,11 @@ export default function Home() {
         <h2>Deals</h2>
         <ul className="flex flex-row gap-x-5 text-[14px] border-b w-fit font-medium">
           {[
+            "All Deals",
             "Completed (3)",
             "Pending (10)",
             "Ongoing (10)",
-            "All Deals",
-            "Waiting for Confirmation (1)",
+            "Waiting (1)",
           ].map((item) => (
             <li
               key={item}
@@ -128,7 +129,7 @@ export default function Home() {
             </Select>
             <Select
               onValueChange={(value) =>
-                setSelectedCompany(value === "All" ? null : value)
+                setSelectedCompany(value === "All Deals" ? null : value)
               }
             >
               <SelectTrigger className="w-[180px]">
@@ -147,18 +148,19 @@ export default function Home() {
               </SelectContent>
             </Select>
             <Select
-              onValueChange={(value) =>
-                setSelectedStatus(value === "All" ? null : value)
-              }
+              value={selectedStatus || "All Deals"}
+              onValueChange={(value) => {
+                setSelectedStatus(value === "All Deals" ? null : value);
+                setSelectedHeaderStatus(value === "All Deals" ? "All Deals" : `${value} (x)`); // `x` can be a placeholder for count
+              }}
             >
-              <SelectTrigger className="w-[110px]">
+              <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
-                  <SelectItem value="All">All</SelectItem>
-                  {statusData.map((status, index) => (
+                  {["All Deals", "Completed", "Pending", "Ongoing", "Waiting"].map((status, index) => (
                     <SelectItem key={index} value={status}>
                       {status}
                     </SelectItem>
