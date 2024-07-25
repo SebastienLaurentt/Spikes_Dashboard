@@ -19,11 +19,14 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedHeaderStatus, setSelectedHeaderStatus] =
     useState<string>("Completed (3)");
   const [selectedObject, setSelectedObject] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>("Completed");
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(
+    "Completed"
+  );
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
   );
@@ -48,7 +51,7 @@ export default function Home() {
 
     if (!isChecked) {
       setIsAllChecked(false);
-    } else if (newCheckedItems.every(item => item)) {
+    } else if (newCheckedItems.every((item) => item)) {
       setIsAllChecked(true);
     }
   };
@@ -71,7 +74,12 @@ export default function Home() {
       ? row.company.name === selectedCompany
       : true;
     const statusMatch = selectedStatus ? row.status === selectedStatus : true;
-    return objectMatch && companyMatch && statusMatch;
+    const searchMatch = searchTerm
+      ? row.object.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        row.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        row.status.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+    return objectMatch && companyMatch && statusMatch && searchMatch;
   });
 
   return (
@@ -106,6 +114,8 @@ export default function Home() {
               className="text-xs"
               hasSearchIcon
               searchIconSize={13}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Select
               onValueChange={(value) =>
@@ -151,7 +161,9 @@ export default function Home() {
               value={selectedStatus || "All Deals"}
               onValueChange={(value) => {
                 setSelectedStatus(value === "All Deals" ? null : value);
-                setSelectedHeaderStatus(value === "All Deals" ? "All Deals" : `${value} (x)`); // `x` can be a placeholder for count
+                setSelectedHeaderStatus(
+                  value === "All Deals" ? "All Deals" : `${value} (x)`
+                ); // `x` can be a placeholder for count
               }}
             >
               <SelectTrigger className="w-[180px]">
@@ -160,7 +172,13 @@ export default function Home() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Status</SelectLabel>
-                  {["All Deals", "Completed", "Pending", "Ongoing", "Waiting"].map((status, index) => (
+                  {[
+                    "All Deals",
+                    "Completed",
+                    "Pending",
+                    "Ongoing",
+                    "Waiting",
+                  ].map((status, index) => (
                     <SelectItem key={index} value={status}>
                       {status}
                     </SelectItem>
