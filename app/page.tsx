@@ -21,22 +21,17 @@ import { useState } from "react";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedHeaderStatus, setSelectedHeaderStatus] =
-    useState<string>("Completed (3)");
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [selectedObject, setSelectedObject] = useState<string | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(
-    "Completed"
-  );
   const [checkedItems, setCheckedItems] = useState<boolean[]>(
     new Array(tableData.length).fill(false)
   );
   const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const handleFilterHeaderStatus = (filter: string) => {
-    setSelectedHeaderStatus(filter);
-    setSelectedStatus(filter === "All Deals" ? null : filter.split(" ")[0]);
+  const handleHeaderStatusClick = (status: string) => {
+    setSelectedStatus(status === "All Deals" ? null : status.split(" ")[0]);
   };
 
   const handleSelectAllChange = (checked: boolean | string) => {
@@ -96,19 +91,20 @@ export default function Home() {
         <ul className="flex flex-row gap-x-5 text-[14px] border-b w-fit font-medium">
           {[
             "All Deals",
-            "Completed (3)",
-            "Pending (10)",
-            "Ongoing (10)",
+            "Completed (2)",
+            "Pending (3)",
+            "Ongoing (2)",
             "Waiting (1)",
           ].map((item) => (
             <li
               key={item}
               className={`cursor-pointer px-2 hover:border-b hover:border-black hover:text-accent ${
-                selectedHeaderStatus === item
+                (selectedStatus === null && item === "All Deals") ||
+                selectedStatus === item.split(" ")[0]
                   ? "border-black border-b text-accent"
                   : "text-accent/20"
               }`}
-              onClick={() => handleFilterHeaderStatus(item)}
+              onClick={() => handleHeaderStatusClick(item)}
             >
               {item}
             </li>
@@ -126,6 +122,7 @@ export default function Home() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Select
+              value={selectedObject || "All"}
               onValueChange={(value) =>
                 setSelectedObject(value === "All" ? null : value)
               }
@@ -146,8 +143,9 @@ export default function Home() {
               </SelectContent>
             </Select>
             <Select
+              value={selectedCompany || "All"}
               onValueChange={(value) =>
-                setSelectedCompany(value === "All Deals" ? null : value)
+                setSelectedCompany(value === "All" ? null : value)
               }
             >
               <SelectTrigger className="w-[180px]">
@@ -169,9 +167,7 @@ export default function Home() {
               value={selectedStatus || "All Deals"}
               onValueChange={(value) => {
                 setSelectedStatus(value === "All Deals" ? null : value);
-                setSelectedHeaderStatus(
-                  value === "All Deals" ? "All Deals" : `${value} (x)`
-                ); 
+                handleHeaderStatusClick(value);
               }}
             >
               <SelectTrigger className="w-[180px]">
