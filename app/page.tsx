@@ -3,6 +3,7 @@
 import StatueCircle from "@/components/StatueCircle";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { CommandDialogDemo } from "@/components/ui/commandDialogDemo";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -31,6 +32,7 @@ export default function Home() {
     new Array(tableData.length).fill(false)
   );
   const [isAllChecked, setIsAllChecked] = useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleFilterHeaderStatus = (filter: string) => {
     setSelectedHeaderStatus(filter);
@@ -67,6 +69,11 @@ export default function Home() {
   const statusData = tableData
     .map((row) => row.status)
     .filter((value, index, self) => self.indexOf(value) === index);
+
+  // Reset filters
+  const resetObjectFilter = () => setSelectedObject(null);
+  const resetCompanyFilter = () => setSelectedCompany(null);
+  const resetStatusFilter = () => setSelectedStatus(null);
 
   const filteredData = tableData.filter((row) => {
     const objectMatch = selectedObject ? row.object === selectedObject : true;
@@ -107,6 +114,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
+
         <div className="flex flex-row">
           <div className="flex flex-row gap-x-3">
             <Input
@@ -163,7 +171,7 @@ export default function Home() {
                 setSelectedStatus(value === "All Deals" ? null : value);
                 setSelectedHeaderStatus(
                   value === "All Deals" ? "All Deals" : `${value} (x)`
-                ); // `x` can be a placeholder for count
+                ); 
               }}
             >
               <SelectTrigger className="w-[180px]">
@@ -198,7 +206,23 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Table */}
+      <div className="hidden">
+        <CommandDialogDemo
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          objectsData={objectsData}
+          companiesData={companiesData}
+          statusData={statusData}
+          onSelectObject={setSelectedObject}
+          onSelectCompany={setSelectedCompany}
+          onSelectStatus={setSelectedStatus}
+          resetCompanyFilter={resetCompanyFilter}
+          resetStatusFilter={resetStatusFilter}
+          resetObjectFilter={resetObjectFilter}
+        />
+      </div>
+
+      {/* Tableau */}
       <div className="mt-8">
         <table className="min-w-full">
           <thead>
