@@ -54,7 +54,7 @@ const Nav = () => {
         </ul>
       </div>
 
-      {/* Your Lists Tab */}
+      {/* Your List Tab */}
       <div className="py-2">
         <span className="text-primary-foreground text-[14px]">Your Lists</span>
         <ul className="text-sm font-bold gap-y-[1px] flex flex-col">
