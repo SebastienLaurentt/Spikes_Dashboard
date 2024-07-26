@@ -2,6 +2,7 @@
 
 import { ChevronDown, Crown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -126,16 +127,18 @@ const Nav = () => {
 
       {/* Profile Section */}
       <div className="bg-primary border mt-1.5 flex flex-row p-2 items-center rounded-[12px] gap-x-[11px]">
-        <Image
-          src="/images/profil.png"
-          alt="profile"
-          width={47}
-          height={47}
-          className="rounded-[4px]"
-        />
+        <Link href="https://x.com/Seb_webdev">
+          <Image
+            src="/images/Profil.jpg"
+            alt="profile"
+            width={47}
+            height={47}
+            className="rounded-[4px]"
+          />
+        </Link>
         <div className="flex flex-col">
-          <span className="text-[14px] font-bold">Arthur Bossuyt</span>
-          <span className="text-[14px]">Arthur@squared.studio</span>
+          <span className="text-[14px] font-bold">Sébastien Laurent</span>
+          <span className="text-[14px]">slaurent.dev@gmail.com</span>
         </div>
         <ChevronDown />
       </div>
