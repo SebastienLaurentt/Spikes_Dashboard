@@ -89,7 +89,7 @@ export default function Home() {
     <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
       <div className="flex flex-col gap-y-5">
         <h2>Deals</h2>
-        <ul className="flex flex-row gap-x-5 text-[14px] border-b w-fit font-medium">
+        <ul className="flex flex-row text-[14px] border-b w-fit font-medium">
           {[
             "All Deals",
             "Completed (2)",
@@ -99,7 +99,7 @@ export default function Home() {
           ].map((item) => (
             <li
               key={item}
-              className={`cursor-pointer px-2 hover:border-b hover:border-black hover:text-accent ${
+              className={`cursor-pointer px-4 hover:border-b hover:border-black hover:text-accent ${
                 (selectedStatus === null && item === "All Deals") ||
                 selectedStatus === item.split(" ")[0]
                   ? "border-black border-b text-accent"
