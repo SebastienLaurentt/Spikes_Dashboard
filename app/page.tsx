@@ -1,9 +1,10 @@
 "use client";
 
+import { Command } from "@/components/Command";
 import StatueCircle from "@/components/StatueCircle";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CommandDialogDemo } from "@/components/ui/commandDialogDemo";
+
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -212,7 +213,7 @@ export default function Home() {
       </div>
 
       <div className="hidden">
-        <CommandDialogDemo
+        <Command
           open={dialogOpen}
           onOpenChange={setDialogOpen}
           objectsData={objectsData}

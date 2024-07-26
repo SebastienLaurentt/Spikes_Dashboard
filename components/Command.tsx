@@ -11,7 +11,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import StatueCircle from "../StatueCircle";
+import StatueCircle from "./StatueCircle";
 import Image from "next/image";
 
 type StatusType = "Pending" | "Cancelled" | "Ongoing" | "Waiting" | "Completed";
@@ -21,7 +21,7 @@ interface Company {
   image: string;
 }
 
-interface CommandDialogDemoProps {
+interface CommandProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   objectsData: string[];
@@ -35,7 +35,7 @@ interface CommandDialogDemoProps {
   resetObjectFilter: () => void;
 }
 
-export function CommandDialogDemo({
+export function Command({
   open,
   onOpenChange,
   objectsData,
@@ -47,7 +47,7 @@ export function CommandDialogDemo({
   resetCompanyFilter,
   resetStatusFilter,
   resetObjectFilter,
-}: CommandDialogDemoProps) {
+}: CommandProps) {
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
