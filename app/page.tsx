@@ -194,7 +194,7 @@ export default function Home() {
                     "Waiting",
                   ].map((status, index) => (
                     <SelectItem key={index} value={status}>
-                      {status}
+                       {status}
                     </SelectItem>
                   ))}
                 </SelectGroup>
