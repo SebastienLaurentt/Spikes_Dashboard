@@ -58,8 +58,8 @@ export default function Home() {
     .filter((value, index, self) => self.indexOf(value) === index);
 
   const companiesData = tableData
-    .map((row) => row.company.name)
-    .filter((value, index, self) => self.indexOf(value) === index);
+    .map((row) => ({ name: row.company.name, image: row.company.image }))
+    .filter((value, index, self) => self.findIndex(v => v.name === value.name) === index);
 
   const statusData = tableData
     .map((row) => row.status)
@@ -156,8 +156,17 @@ export default function Home() {
                   <SelectLabel>Companies</SelectLabel>
                   <SelectItem value="All">All</SelectItem>
                   {companiesData.map((company, index) => (
-                    <SelectItem key={index} value={company}>
-                      {company}
+                    <SelectItem key={index} value={company.name}>
+                      <span className="flex flex-row items-center gap-x-2">
+                        <Image
+                          src={company.image}
+                          alt={`${company.name} logo`}
+                          height={20}
+                          width={20}
+                          className="rounded-full"
+                        />
+                        {company.name}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectGroup>

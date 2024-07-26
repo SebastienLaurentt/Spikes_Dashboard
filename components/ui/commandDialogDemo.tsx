@@ -11,16 +11,25 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import StatueCircle from "../StatueCircle";
+import Image from "next/image";
+
+type StatusType = "Pending" | "Cancelled" | "Ongoing" | "Waiting" | "Completed";
+
+interface Company {
+  name: string;
+  image: string;
+}
 
 interface CommandDialogDemoProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   objectsData: string[];
-  companiesData: string[];
-  statusData: string[];
+  companiesData: Company[];
+  statusData: StatusType[];
   onSelectObject: (object: string) => void;
   onSelectCompany: (company: string) => void;
-  onSelectStatus: (status: string) => void;
+  onSelectStatus: (status: StatusType) => void;
   resetCompanyFilter: () => void;
   resetStatusFilter: () => void;
   resetObjectFilter: () => void;
@@ -70,9 +79,9 @@ export function CommandDialogDemo({
                   key={index}
                   onSelect={() => {
                     onSelectObject(object);
-                    resetCompanyFilter(); 
-                    resetStatusFilter(); 
-                    onOpenChange(false); 
+                    resetCompanyFilter();
+                    resetStatusFilter();
+                    onOpenChange(false);
                   }}
                 >
                   <span>{object}</span>
@@ -89,13 +98,22 @@ export function CommandDialogDemo({
                 <CommandItem
                   key={index}
                   onSelect={() => {
-                    onSelectCompany(company);
-                    resetObjectFilter(); 
-                    resetStatusFilter(); 
-                    onOpenChange(false); 
+                    onSelectCompany(company.name);
+                    resetObjectFilter();
+                    resetStatusFilter();
+                    onOpenChange(false);
                   }}
                 >
-                  <span>{company}</span>
+                  <span className="flex flex-row items-center gap-x-2">
+                    <span>{company.name}</span>
+                    <Image
+                      src={company.image}
+                      alt={`${company.name} logo`}
+                      width={24}
+                      height={24}
+                      className=" rounded-full"
+                    />
+                  </span>
                 </CommandItem>
               ))
             ) : (
@@ -110,12 +128,14 @@ export function CommandDialogDemo({
                   key={index}
                   onSelect={() => {
                     onSelectStatus(status);
-                    resetObjectFilter(); 
-                    resetCompanyFilter(); 
-                    onOpenChange(false); 
+                    resetObjectFilter();
+                    resetCompanyFilter();
+                    onOpenChange(false);
                   }}
                 >
-                  <span>{status}</span>
+                  <span className="flex flex-row items-center gap-x-2">
+                    <span>{status}</span> <StatueCircle status={status} />
+                  </span>
                 </CommandItem>
               ))
             ) : (
