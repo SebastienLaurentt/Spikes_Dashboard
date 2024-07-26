@@ -8,12 +8,17 @@
     --foreground: 218 24% 27%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-    --popover: 240 3% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 218 24% 27%;
     --primary: 0 0% 100%;
     --primary-foreground: 220 3% 64%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Command */
+    --third: 240 3% 10%;
+    --third-foreground: 0 0% 98%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 220 43% 11%;
@@ -30,7 +35,6 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
-
 }
 
 @layer base {
@@ -39,11 +43,10 @@
   }
   body {
     @apply bg-background text-foreground;
-    scrollbar-color: #e5e7eb #686868; 
+    scrollbar-color: #e5e7eb #686868;
   }
 
-  h2{
+  h2 {
     @apply xl:text-[36px] leading-[40px] font-bold;
   }
-
 }

@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
+import { Dropdown } from "./Dropdown";
+
 
 const Nav = () => {
   const [selectedTab, setSelectedTab] = useState<string>("Leads");
@@ -136,10 +138,7 @@ const Nav = () => {
             className="rounded-[4px]"
           />
         </Link>
-        <div className="flex flex-col">
-          <span className="text-[14px] font-bold">Sébastien Laurent</span>
-          <span className="text-[14px]">slaurent.dev@gmail.com</span>
-        </div>
+          <Dropdown />
         <ChevronDown />
       </div>
     </div>
