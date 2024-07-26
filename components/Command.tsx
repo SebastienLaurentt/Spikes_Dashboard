@@ -11,8 +11,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import StatueCircle from "./StatueCircle";
 import Image from "next/image";
+import StatueCircle from "./StatueCircle";
 
 type StatusType = "Pending" | "Cancelled" | "Ongoing" | "Waiting" | "Completed";
 
@@ -141,6 +141,16 @@ export function Command({
             ) : (
               <CommandEmpty>No statuses found.</CommandEmpty>
             )}
+          </CommandGroup>
+          <CommandGroup heading="Go Rejoindre Spikes">
+            <CommandItem>
+              <Image
+                src="/images/Spikes.webp"
+                alt="Spikes logo"
+                width={400}
+                height={400}
+              />
+            </CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>

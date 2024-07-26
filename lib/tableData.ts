@@ -73,7 +73,7 @@ export const tableData: TableRow[] = [
   {
     date: "Sept. 23",
     object: "Landing page",
-    company: { name: "Opensea", image: "/images/Opensea.png" },
+    company: { name: "Opensea", image: "/images/OpenSea.png" },
     status: "Pending",
     amount: "2.300 $USD",
   },
