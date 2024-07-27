@@ -10,7 +10,7 @@ import { Progress } from "./ui/progress";
 import { Dropdown } from "./Dropdown";
 
 
-const Nav = () => {
+const Nav = ({ onSearchClick }: { onSearchClick: () => void }) => {
   const [selectedTab, setSelectedTab] = useState<string>("Deals");
 
   const handleTabClick = (tab: string) => {
@@ -26,6 +26,7 @@ const Nav = () => {
           placeholder="Search"
           hasSearchIcon
           hasShortCutIcon
+          onClick={onSearchClick}
           searchIconSize={20}
         />
       </div>

@@ -43,7 +43,6 @@ export default function RootLayout({
         </head>
       <body className={inter.className}>
         <div className="my-[30px] flex flex-row">
-          <Nav />
           {children}</div>
           <Footer />
       </body>
