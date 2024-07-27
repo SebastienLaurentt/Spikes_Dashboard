@@ -11,7 +11,7 @@ import { Dropdown } from "./Dropdown";
 
 
 const Nav = () => {
-  const [selectedTab, setSelectedTab] = useState<string>("Leads");
+  const [selectedTab, setSelectedTab] = useState<string>("Deals");
 
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
