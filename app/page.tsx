@@ -67,12 +67,12 @@ export default function Home() {
       <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
         <div className="flex flex-col gap-y-5">
           <h2>Deals</h2>
-          <ul className="flex flex-row text-[14px] border-b w-fit font-medium">
+          <ul className="flex flex-row text-[14px] border-b-2 w-fit font-semibold">
             {["All Deals", "Completed (2)", "Pending (3)", "Ongoing (2)", "Waiting (1)"].map((item) => (
               <li
                 key={item}
-                className={`cursor-pointer px-4 hover:border-b hover:border-black hover:text-accent ${
-                  (selectedStatus === null && item === "All Deals") || selectedStatus === item.split(" ")[0] ? "border-black border-b text-accent" : "text-accent/20"
+                className={`cursor-pointer px-4 hover:border-b-2 hover:border-black hover:text-accent ${
+                  (selectedStatus === null && item === "All Deals") || selectedStatus === item.split(" ")[0] ? "border-black border-b-2 text-accent" : "text-accent/20"
                 }`}
                 onClick={() => handleHeaderStatusClick(item)}
               >
@@ -154,7 +154,7 @@ export default function Home() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex flex-row gap-x-2 ml-20 2xl:ml-60">
+            <div className="flex flex-row gap-x-2 ml-8 2xl:ml-60">
               <Button variant="primary" className="space-x-[5px]">
                 <Download size={18} /> <span className="text-xs">Export</span>
               </Button>
@@ -193,8 +193,8 @@ export default function Home() {
                 </th>
                 <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Object</th>
                 <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Company</th>
-                <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Status</th>
-                <th className="py-3 px-6 w-[237px] 2xl:w-[330px] text-left">Amount</th>
+                <th className="py-3 px-6 w-[180px] 2xl:w-[330px] text-left">Status</th>
+                <th className="py-3 px-6 w-[180px] 2xl:w-[330px] text-left">Amount</th>
               </tr>
             </thead>
             <tbody className="text-[14px] font-medium">
@@ -209,10 +209,10 @@ export default function Home() {
                     <Image src={row.company.image} alt={`${row.company.name} Img`} height={28} width={28} className="rounded-full" />
                     <span>{row.company.name}</span>
                   </td>
-                  <td className="py-4 px-6 w-[237px] 2xl:w-[330px] flex flex-row items-center gap-x-2.5">
+                  <td className="py-4 px-6 w-[180px] 2xl:w-[330px] flex flex-row items-center gap-x-2.5">
                     <StatueCircle status={row.status} /> {row.status}
                   </td>
-                  <td className="py-4 px-6 w-[237px] 2xl:w-[330px]">{row.amount}</td>
+                  <td className="py-4 px-6 w-[180px] 2xl:w-[330px]">{row.amount}</td>
                 </tr>
               ))}
             </tbody>
