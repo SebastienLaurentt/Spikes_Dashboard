@@ -18,7 +18,7 @@ const Nav = ({ onSearchClick }: { onSearchClick: () => void }) => {
   };
 
   return (
-    <div className="w-[326px] h-[800px] px-8 flex flex-col">
+    <div className="w-[326px] h-[800px] px-8 flex flex-col justify-between">
       {/* Icon and SearchBar */}
       <div className="space-y-6 flex flex-col">
         <Image src="/images/icon.png" alt="logo" width={32} height={32} />

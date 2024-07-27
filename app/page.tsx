@@ -62,7 +62,7 @@ export default function Home() {
   });
 
   return (
-    <div className="flex">
+    <div className="flex flex-row w-full">
       <Nav onSearchClick={() => setDialogOpen(true)} /> {/* Passer la fonction d'ouverture */}
       <main className="bg-primary w-full flex-1 rounded-l-[12px] border pl-10 pt-8">
         <div className="flex flex-col gap-y-5">
